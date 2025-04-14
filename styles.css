@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f7f9fb;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.container {
+  max-width: 100%;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 22px;
+  text-align: center;
+  color: #0078d4;
+  margin-bottom: 8px;
+}
+
+p {
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: #666;
+}
+
+#fileInput {
+  display: none;
+}
+
+.custom-file-btn {
+  display: block;
+  margin: 0 auto 24px;
+  padding: 10px 18px;
+  background-color: #0078d4;
+  color: #fff;
+  text-align: center;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#modelList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.model-item {
+  background: #ffffff;
+  padding: 14px 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.model-item span {
+  font-size: 14px;
+  font-weight: 600;
+  flex: 1;
+  margin-right: 10px;
+  word-break: break-all;
+}
+
+button {
+  padding: 8px 12px;
+  background-color: #0078d4;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+button:hover {
+  background-color: #005a9e;
+}
