@@ -7,6 +7,58 @@ const modelList = document.getElementById('modelList');
 const mergeSelBtn = document.getElementById('mergeSelectedBtn');
 const mergeAllBtn = document.getElementById('mergeFilesBtn');
 
+const translations = {
+  id: {
+    title: 'Geometry Splitter & Merger',
+    description: 'Upload satu atau lebih file JSON Minecraft untuk split dan merge model-modelnya.',
+    customFileBtn: 'Pilih JSON File',
+    mergeSelectedBtn: 'Merge Selected',
+    mergeFilesBtn: 'Merge Semua File',
+    alertMergeMin: 'Pilih minimal 2 model untuk merge!',
+    alertUploadMin: 'Upload minimal 2 file.',
+    alertFailedParse: 'Gagal parse ',
+    alertCopySuccess: 'JSON "',
+    alertCopyFailed: 'Gagal menyalin ke clipboard.',
+    downloaded: ' telah disalin!',
+    download: 'Download',
+    copy: 'Copy'
+  },
+  en: {
+    title: 'Geometry Splitter & Merger',
+    description: 'Upload one or more Minecraft JSON files to split and merge the models.',
+    customFileBtn: 'Select JSON File',
+    mergeSelectedBtn: 'Merge Selected',
+    mergeFilesBtn: 'Merge All Files',
+    alertMergeMin: 'Select at least 2 models to merge!',
+    alertUploadMin: 'Upload at least 2 files.',
+    alertFailedParse: 'Failed to parse ',
+    alertCopySuccess: 'JSON "',
+    alertCopyFailed: 'Failed to copy to clipboard.',
+    downloaded: ' has been copied!',
+    download: 'Download',
+    copy: 'Copy'
+  }
+};
+
+function getSystemLanguage() {
+  const lang = (navigator.language || navigator.userLanguage).toLowerCase();
+  return lang.startsWith('id') ? 'id' : 'en';
+}
+
+function applyTranslation(lang) {
+  const translation = translations[lang];
+  
+  document.querySelectorAll('[data-translate]').forEach(element => {
+    const key = element.getAttribute('data-translate');
+    element.textContent = translation[key];
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const lang = getSystemLanguage();
+  applyTranslation(lang);
+});
+
 fileInput.addEventListener('change', function(e) {
   const files = Array.from(e.target.files);
   if (!files.length) return;
@@ -26,7 +78,7 @@ fileInput.addEventListener('change', function(e) {
         versions.push(js.format_version);
         filenames.push(file.name);
       } catch(err) {
-        alert(`Gagal parse ${file.name}: ${err}`);
+        alert(translations[getSystemLanguage()].alertFailedParse + file.name + ': ' + err);
       }
       loaded++;
       if (loaded === files.length) {
@@ -67,13 +119,13 @@ function generateModelList() {
       label.textContent = key;
 
       const downloadBtn = document.createElement('button');
-      downloadBtn.textContent = 'Download';
+      downloadBtn.textContent = translations[getSystemLanguage()].download;
       downloadBtn.addEventListener('click', () => {
         downloadModel(key, json[key], version);
       });
 
       const copyBtn = document.createElement('button');
-      copyBtn.textContent = 'Copy';
+      copyBtn.textContent = translations[getSystemLanguage()].copy;
       copyBtn.style.marginLeft = '8px';
       copyBtn.addEventListener('click', () => {
         copyModel(key, json[key], version);
@@ -91,6 +143,8 @@ function generateModelList() {
 
     modelList.appendChild(section);
   });
+
+  applyTranslation(getSystemLanguage());
 }
 
 function downloadModel(key, modelData, version) {
@@ -110,8 +164,8 @@ function copyModel(key, modelData, version) {
   const obj = { format_version: version, [key]: modelData };
   const text = JSON.stringify(obj, null, 2);
   navigator.clipboard.writeText(text)
-    .then(() => alert(`JSON "${key}" telah disalin!`))
-    .catch(() => alert('Gagal menyalin ke clipboard.'));
+    .then(() => alert(translations[getSystemLanguage()].alertCopySuccess + key + translations[getSystemLanguage()].downloaded))
+    .catch(() => alert(translations[getSystemLanguage()].alertCopyFailed));
 }
 
 mergeSelBtn.addEventListener('click', () => {
@@ -120,7 +174,7 @@ mergeSelBtn.addEventListener('click', () => {
   );
   
   if (checked.length < 2) {
-    alert('Pilih minimal 2 model untuk merge!');
+    alert(translations[getSystemLanguage()].alertMergeMin);
     return;
   }
 
@@ -153,7 +207,7 @@ mergeSelBtn.addEventListener('click', () => {
 
 mergeAllBtn.addEventListener('click', () => {
   if (jsonList.length < 2) {
-    alert('Upload minimal 2 file.');
+    alert(translations[getSystemLanguage()].alertUploadMin);
     return;
   }
 
@@ -185,7 +239,6 @@ mergeAllBtn.addEventListener('click', () => {
   URL.revokeObjectURL(url);
 });
 
-// Fungsi bandingkan 2 versi semver
 function compareVersion(v1, v2) {
   const a = v1.split('.').map(n => parseInt(n));
   const b = v2.split('.').map(n => parseInt(n));
