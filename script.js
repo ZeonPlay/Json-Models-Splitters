@@ -4,7 +4,7 @@ document.getElementById('fileInput').addEventListener('change', function(e) {
     const reader = new FileReader();
     reader.onload = function(e) {
       try {
-        const json = JSON.parse(e.target.result);
+        const json = JSON5.parse(e.target.result);
         generateModelList(json);
       } catch(err) {
         alert('Gagal parse JSON: ' + err);
