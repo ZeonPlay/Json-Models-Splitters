@@ -57,6 +57,7 @@ p {
 .model-item {
   background: #ffffff;
   padding: 14px 16px;
+  margin: 10px;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   display: flex;
@@ -70,6 +71,25 @@ p {
   flex: 1;
   margin-right: 10px;
   word-break: break-all;
+}
+
+/* Outline & animasi saat .model-item dipilih */
+.model-item:has(input[type="checkbox"]:checked) {
+  outline: 2px solid #28a745;
+  animation: highlight 0.4s ease-in-out;
+}
+
+/* Keyframes untuk efek glow */
+@keyframes highlight {
+  0% {
+    box-shadow: 0 0 0 rgba(40, 167, 69, 0);
+  }
+  50% {
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(40, 167, 69, 0);
+  }
 }
 
 button {
@@ -86,4 +106,41 @@ button {
 
 button:hover {
   background-color: #005a9e;
+}
+
+.merge-wrapper {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#mergeSelectedBtn,
+#mergeFilesBtn {
+  padding: 8px 16px;
+  background-color: #28a745;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#mergeSelectedBtn:hover,
+#mergeFilesBtn:hover {
+  background-color: #218838;
+}
+
+.file-section {
+  margin-bottom: 24px;
+}
+
+.file-section h2 {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 4px;
 }
