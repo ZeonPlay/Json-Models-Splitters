@@ -12,7 +12,7 @@ const translations = {
     title: 'Geometry Splitter & Merger',
     description: 'Upload satu atau lebih file JSON Minecraft untuk split dan merge model-modelnya.',
     customFileBtn: 'Pilih JSON File',
-    mergeSelectedBtn: 'Merge Selected',
+    mergeSelectedBtn: 'Merge Yang Dipilih',
     mergeFilesBtn: 'Merge Semua File',
     alertMergeMin: 'Pilih minimal 2 model untuk merge!',
     alertUploadMin: 'Upload minimal 2 file.',
